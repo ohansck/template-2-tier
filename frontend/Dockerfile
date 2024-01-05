@@ -15,9 +15,6 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Build the frontend application
-RUN npm run build
-
 # Expose the application port
 EXPOSE 8080
 
