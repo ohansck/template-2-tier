@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: CI
 
 on:
   push:
@@ -6,66 +6,28 @@ on:
       - main
 
 jobs:
-  build-and-push-image:
+  build:
     runs-on: ubuntu-latest
 
-    env:
-      DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      DOCKER_REPO: cleowoman
-      BACKEND_DIR: image-filter-backend
-      FRONTEND_DIR: image-filter-frontend
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Build and Push Docker Image
-        run: |
-          # Build the Frontend Docker image
-          docker build -t cleowoman/frontend ../image-filter-frontend
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
 
-          # Build the Backend Docker image
-          docker build -t cleowoman/backend ../image-filter-backend
+    - name: Build and Push Frontend Docker Image
+      working-directory: image-filter-frontend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker build -t $DOCKER_USERNAME/frontend .
+        docker push $DOCKER_USERNAME/frontend
 
-          # Log in to Docker Hub using your credentials
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-          # Push the Docker images to Docker Hub
-          docker push cleowoman/frontend
-          docker push cleowoman/backend
-
-
-# name: CI
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout Repository
-#       uses: actions/checkout@v2
-
-#     - name: Set up Node.js
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: 14
-
-#     - name: Build and Push Frontend Docker Image
-#       working-directory: image-filter-frontend
-#       run: |
-#         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#         docker build -t $DOCKER_USERNAME/frontend .
-#         docker push $DOCKER_USERNAME/frontend
-
-#     - name: Build and Push Backend Docker Image
-#       working-directory: image-filter-backend
-#       run: |
-#         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#         docker build -t $DOCKER_USERNAME/backend .
-#         docker push $DOCKER_USERNAME/backend
+    - name: Build and Push Backend Docker Image
+      working-directory: image-filter-backend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker build -t $DOCKER_USERNAME/backend .
+        docker push $DOCKER_USERNAME/backend
