@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Build and Push Frontend Docker Image
+      working-directory: image-filter-frontend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker build -t $DOCKER_USERNAME/frontend .
+        docker push $DOCKER_USERNAME/frontend
+
+    - name: Build and Push Backend Docker Image
+      working-directory: image-filter-backend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker build -t $DOCKER_USERNAME/backend .
+        docker push $DOCKER_USERNAME/backend
