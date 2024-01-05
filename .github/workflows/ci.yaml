@@ -32,7 +32,7 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t cleowoman/front --load ../../frontend
+          docker buildx build --platform linux/arm64 -t cleowoman/front --load ../../frontend/Dockerfile
           docker push cleowoman/front
 
       - name: Build and Push Backend Docker Image
@@ -40,7 +40,7 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t cleowoman/back --load ../../backend
+          docker buildx build --platform linux/arm64 -t cleowoman/back --load ../../backend/Dockerfile
           docker push cleowoman/back
 
 
