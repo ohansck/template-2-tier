@@ -28,19 +28,19 @@ jobs:
           password: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Build and Push Frontend Docker Image
-#        working-directory: image-filter-frontend
+        working-directory: image-filter-frontend
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t cleowoman/front --load .
+          docker buildx build --platform linux/arm64 -t cleowoman/front --load ../../frontend
           docker push cleowoman/front
 
       - name: Build and Push Backend Docker Image
-#        working-directory: image-filter-backend
+        working-directory: image-filter-backend
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t cleowoman/back --load .
+          docker buildx build --platform linux/arm64 -t cleowoman/back --load ../../backend
           docker push cleowoman/back
 
 
