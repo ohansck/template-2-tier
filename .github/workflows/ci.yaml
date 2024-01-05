@@ -32,15 +32,15 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/front ./image-filter-frontend
-          docker push $DOCKER_USERNAME/front
+          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/front:v1 --load ./image-filter-frontend
+          docker push $DOCKER_USERNAME/front:v1
 
       - name: Build and Push Backend Docker Image
         working-directory: image-filter-backend
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/back ./image-filter-backend
-          docker push $DOCKER_USERNAME/back
+          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/back:v1 --load ./image-filter-backend
+          docker push $DOCKER_USERNAME/back:v1
 
 
