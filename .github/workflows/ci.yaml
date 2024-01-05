@@ -35,12 +35,12 @@ jobs:
           docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/frontend ./image-filter-frontend
           docker push $DOCKER_USERNAME/frontend
 
-      - name: Build and Push Frontend Docker Image
+      - name: Build and Push Backend Docker Image
         working-directory: image-filter-backend
         run: |
           docker buildx create --use
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/frontend ./image-filter-backend
-          docker push $DOCKER_USERNAME/frontend 
+          docker buildx build --platform linux/arm64 -t $DOCKER_USERNAME/backend ./image-filter-backend
+          docker push $DOCKER_USERNAME/backend 
 
 
