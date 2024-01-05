@@ -23,10 +23,10 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           # Build the Frontend Docker image
-          docker build -t cleowoman/frontend ./image-filter-frontend
+          docker build -t cleowoman/frontend /image-filter-frontend
 
           # Build the Backend Docker image
-          docker build -t cleowoman/backend ./image-filter-backend
+          docker build -t cleowoman/backend /image-filter-backend
 
           # Log in to Docker Hub using your credentials
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
