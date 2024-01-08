@@ -37,7 +37,7 @@ RUN cd www && zip -r Archive.zip . && cd ..
 #COPY --from=build /app/www ./www
 
 # Expose the application port
-EXPOSE 8082
+EXPOSE 8083
 
 # Start the backend application
 CMD ["npm", "ts-node-dev", "--respawn", "--transpile-only", "./src/server.ts"]
