@@ -40,5 +40,5 @@ RUN cd www && zip -r Archive.zip . && cd ..
 EXPOSE 8082
 
 # Start the backend application
-CMD ["npm", "Start"]
+CMD ["npm", "ts-node-dev", "--respawn", "--transpile-only", "./src/server.ts"]
 
