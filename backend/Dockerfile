@@ -16,13 +16,11 @@ RUN npm install
 COPY . .
 
 #run the build command
-RUN npm run clean && \
-    tsc && \
-    cp package.json www/package.json && \
-    mkdir www/tmp/ && \
-    cd www && \
-    zip -r Archive.zip . && \
-    cd ..
+RUN npm run clean
+RUN tsc
+RUN cp package.json www/package.json
+RUN mkdir www/tmp/ 
+RUN cd www && zip -r Archive.zip . && cd ..
 
 # Expose the application port
 EXPOSE 8082
