@@ -22,7 +22,7 @@ const cors = require('cors');
   app.get('/filteredimage', async (req:Request, res:Response)=>{ 
    
     let image_url:any = req.query.image_url
-    let image_size:number = parseInt(req.query.image_size)
+    let image_size:any = req.query.image_size
 
     try{
       const filterimage = await filterImageFromURL(image_url,image_size)
