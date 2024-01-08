@@ -5,11 +5,14 @@ services:
       context: ./frontend
     environment:
       - URL=http://backend:8083  # Set the URL environment variable with the backend URL
+      - PORT=8181
     ports:
       - "8181:8181"
 
   backend:
     build:
       context: ./backend
+    environment:
+      - PORT=8083
     ports:
       - "8083:8083"
