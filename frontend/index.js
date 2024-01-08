@@ -31,7 +31,7 @@ app.post('/image', (req, res) => {
   try {
     axios({
       method: 'get',
-      url: URL,
+      url: `${URL}/filteredimage`,
       params: {image_url, image_size},
       responseType: 'blob'
     })
