@@ -14,6 +14,9 @@ RUN npm install
 
 RUN npm install -g typescript
 
+RUN npm install -g rimraf
+
+
 # Install zip utility
 RUN apk --no-cache add zip
 
