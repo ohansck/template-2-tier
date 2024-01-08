@@ -30,11 +30,11 @@ RUN cp package.json www/package.json
 RUN mkdir www/tmp/ 
 RUN cd www && zip -r Archive.zip . && cd ..
 
-FROM node:14-alpine
+#FROM node:14-alpine
 
-WORKDIR /app
+#WORKDIR /app
 
-COPY --from=build /app/www ./www
+#COPY --from=build /app/www ./www
 
 # Expose the application port
 EXPOSE 8082
