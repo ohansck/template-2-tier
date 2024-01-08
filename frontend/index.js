@@ -7,7 +7,8 @@ let Path = require('path')
 
 
 let app = express()
-const PORT = process.env.PORT || 8181
+const PORT = process.env.PORT || 8181;
+const URL = process.env.URL || 'https://google.com'
 
 app.set('view engine', 'ejs')
 app.set('views', Path.join(__dirname, '/views'))
@@ -22,7 +23,27 @@ app.use(express.static(Path.join(__dirname,'/public')))
 
 app.get('/', (req,res)=>{
   res.render('index')
+});
+
+app.post('/image', (req, res) => {
+  const {image_url, image_size} = req.params;
+
+  try {
+    axios({
+      method: 'get',
+      url: URL,
+      params: {image_url, image_size},
+      responseType: 'blob'
+    })
+    .then( data => {
+      res.send(data);
+    })
+  } catch (error) {
+    console.error(error.message);
+  }
+  
 })
+
 
 
 

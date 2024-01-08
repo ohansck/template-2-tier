@@ -9,7 +9,7 @@ console.log(imageURL, imageSize);
 
 axios({
     method: 'get',
-    url: 'https://my-imgapp.onrender.com/filteredimage',
+    url: '/image',
     params: {image_url: imageURL, image_size: imageSize},
     responseType: 'blob'
   })
