@@ -27,7 +27,7 @@ RUN cp package.json www/package.json
 RUN mkdir www/tmp/ 
 RUN cd www && zip -r Archive.zip . && cd ..
 
-FROM Node:14-alpine
+FROM node:14-alpine
 
 WORKDIR /app
 
