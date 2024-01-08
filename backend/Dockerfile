@@ -14,6 +14,9 @@ RUN npm install
 
 RUN npm install -g typescript
 
+# Install zip utility
+RUN apk --no-cache add zip
+
 # Copy the rest of the application code
 COPY . .
 
